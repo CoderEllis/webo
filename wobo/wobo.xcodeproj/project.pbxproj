@@ -12,9 +12,21 @@
 		161A0E9621B64E13002FDE49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 161A0E9421B64E13002FDE49 /* Main.storyboard */; };
 		161A0E9821B64E15002FDE49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161A0E9721B64E15002FDE49 /* Assets.xcassets */; };
 		161A0E9B21B64E15002FDE49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 161A0E9921B64E15002FDE49 /* LaunchScreen.storyboard */; };
-		16213C2321B7DB6600E09709 /* textViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16213C2121B7DB6600E09709 /* textViewViewController.swift */; };
-		16213C2821B7E43400E09709 /* textViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16213C2721B7E43400E09709 /* textViewViewController.xib */; };
-		167450C121B66C6A0062CFE6 /* MainTabBarItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C021B66C6A0062CFE6 /* MainTabBarItemContent.swift */; };
+		161E12AA21C6334F00A0CB11 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E12A921C6334F00A0CB11 /* PopoverViewController.swift */; };
+		161E12AC21C6358200A0CB11 /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E12AB21C6358200A0CB11 /* TitleButton.swift */; };
+		161E12AE21C64E7600A0CB11 /* ELPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E12AD21C64E7600A0CB11 /* ELPresentationController.swift */; };
+		161E12B021C6516100A0CB11 /* PopoverAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E12AF21C6516100A0CB11 /* PopoverAnimator.swift */; };
+		161FCF0D21BFEF3400AA225F /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161FCF0C21BFEF3400AA225F /* NetworkTools.swift */; };
+		161FCF0F21C364C500AA225F /* OAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161FCF0E21C364C500AA225F /* OAuthViewController.swift */; };
+		161FCF1121C39A5500AA225F /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161FCF1021C39A5500AA225F /* UserAccount.swift */; };
+		161FCF1321C4D43500AA225F /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161FCF1221C4D43500AA225F /* UserAccountViewModel.swift */; };
+		1624A78B21BB939D00F178FB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624A78A21BB939D00F178FB /* BaseViewController.swift */; };
+		1624A78E21BB985300F178FB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624A78D21BB985300F178FB /* WelcomeViewController.swift */; };
+		1624A79021BB990000F178FB /* ELVisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624A78F21BB990000F178FB /* ELVisitorView.swift */; };
+		1624A79321BBA60100F178FB /* ELVisitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624A79221BBA60100F178FB /* ELVisitorViewController.swift */; };
+		1624A79A21BBFBD300F178FB /* NetBaseUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624A79821BBFBD300F178FB /* NetBaseUrl.swift */; };
+		1624A7BC21BC1D1F00F178FB /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624A7BB21BC1D1F00F178FB /* UIColor-Extension.swift */; };
+		167450C121B66C6A0062CFE6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C021B66C6A0062CFE6 /* MainTabBarController.swift */; };
 		167450C321B6717E0062CFE6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C221B6717E0062CFE6 /* HomeViewController.swift */; };
 		167450C521B6718D0062CFE6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C421B6718D0062CFE6 /* MessageViewController.swift */; };
 		167450C721B671960062CFE6 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C621B671960062CFE6 /* DiscoverViewController.swift */; };
@@ -33,9 +45,21 @@
 		161A0E9721B64E15002FDE49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		161A0E9A21B64E15002FDE49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		161A0E9C21B64E15002FDE49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		16213C2121B7DB6600E09709 /* textViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textViewViewController.swift; sourceTree = "<group>"; };
-		16213C2721B7E43400E09709 /* textViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = textViewViewController.xib; sourceTree = "<group>"; };
-		167450C021B66C6A0062CFE6 /* MainTabBarItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarItemContent.swift; sourceTree = "<group>"; };
+		161E12A921C6334F00A0CB11 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		161E12AB21C6358200A0CB11 /* TitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
+		161E12AD21C64E7600A0CB11 /* ELPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELPresentationController.swift; sourceTree = "<group>"; };
+		161E12AF21C6516100A0CB11 /* PopoverAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverAnimator.swift; sourceTree = "<group>"; };
+		161FCF0C21BFEF3400AA225F /* NetworkTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
+		161FCF0E21C364C500AA225F /* OAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthViewController.swift; sourceTree = "<group>"; };
+		161FCF1021C39A5500AA225F /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		161FCF1221C4D43500AA225F /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewModel.swift; sourceTree = "<group>"; };
+		1624A78A21BB939D00F178FB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		1624A78D21BB985300F178FB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		1624A78F21BB990000F178FB /* ELVisitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELVisitorView.swift; sourceTree = "<group>"; };
+		1624A79221BBA60100F178FB /* ELVisitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELVisitorViewController.swift; sourceTree = "<group>"; };
+		1624A79821BBFBD300F178FB /* NetBaseUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetBaseUrl.swift; sourceTree = "<group>"; };
+		1624A7BB21BC1D1F00F178FB /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
+		167450C021B66C6A0062CFE6 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		167450C221B6717E0062CFE6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		167450C421B6718D0062CFE6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		167450C621B671960062CFE6 /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +134,7 @@
 		161A0EA321B64E62002FDE49 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				161E12A821C6333B00A0CB11 /* UIPopover */,
 				161A0EA421B64E62002FDE49 /* Model */,
 				161A0EA521B64E62002FDE49 /* View */,
 				161A0EA621B64E62002FDE49 /* Contorller */,
@@ -245,21 +270,22 @@
 		161A0EB421B64E62002FDE49 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				161A0EB521B64E62002FDE49 /* TabBarView */,
+				1624A78C21BB983F00F178FB /* Welcome */,
+				1624A78921BB934B00F178FB /* Visitor */,
+				1624A79421BBED0500F178FB /* OAuth */,
+				161A0EB521B64E62002FDE49 /* mainUI */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		161A0EB521B64E62002FDE49 /* TabBarView */ = {
+		161A0EB521B64E62002FDE49 /* mainUI */ = {
 			isa = PBXGroup;
 			children = (
-				167450C021B66C6A0062CFE6 /* MainTabBarItemContent.swift */,
+				167450C021B66C6A0062CFE6 /* MainTabBarController.swift */,
 				167450D121B702A40062CFE6 /* MainNavigationController.swift */,
 				167450D721B7C2670062CFE6 /* MaintabBar.swift */,
-				16213C2121B7DB6600E09709 /* textViewViewController.swift */,
-				16213C2721B7E43400E09709 /* textViewViewController.xib */,
 			);
-			path = TabBarView;
+			path = mainUI;
 			sourceTree = "<group>";
 		};
 		161A0EB821B64E62002FDE49 /* Tool */ = {
@@ -267,8 +293,48 @@
 			children = (
 				167450CE21B6E35B0062CFE6 /* Category */,
 				167450CA21B6CA700062CFE6 /* Common.swift */,
+				1624A79821BBFBD300F178FB /* NetBaseUrl.swift */,
+				161FCF0C21BFEF3400AA225F /* NetworkTools.swift */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		161E12A821C6333B00A0CB11 /* UIPopover */ = {
+			isa = PBXGroup;
+			children = (
+				161E12A921C6334F00A0CB11 /* PopoverViewController.swift */,
+				161E12AD21C64E7600A0CB11 /* ELPresentationController.swift */,
+				161E12AF21C6516100A0CB11 /* PopoverAnimator.swift */,
+			);
+			path = UIPopover;
+			sourceTree = "<group>";
+		};
+		1624A78921BB934B00F178FB /* Visitor */ = {
+			isa = PBXGroup;
+			children = (
+				1624A78A21BB939D00F178FB /* BaseViewController.swift */,
+				1624A79221BBA60100F178FB /* ELVisitorViewController.swift */,
+				1624A78F21BB990000F178FB /* ELVisitorView.swift */,
+			);
+			path = Visitor;
+			sourceTree = "<group>";
+		};
+		1624A78C21BB983F00F178FB /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				1624A78D21BB985300F178FB /* WelcomeViewController.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		1624A79421BBED0500F178FB /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				161FCF0E21C364C500AA225F /* OAuthViewController.swift */,
+				161FCF1021C39A5500AA225F /* UserAccount.swift */,
+				161FCF1221C4D43500AA225F /* UserAccountViewModel.swift */,
+			);
+			path = OAuth;
 			sourceTree = "<group>";
 		};
 		167450CE21B6E35B0062CFE6 /* Category */ = {
@@ -276,6 +342,8 @@
 			children = (
 				167450CC21B6E33A0062CFE6 /* UIButton-Extension.swift */,
 				167450CF21B6E7070062CFE6 /* UIBarButtonItem-Extension.swift */,
+				1624A7BB21BC1D1F00F178FB /* UIColor-Extension.swift */,
+				161E12AB21C6358200A0CB11 /* TitleButton.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -359,7 +427,6 @@
 			files = (
 				161A0E9B21B64E15002FDE49 /* LaunchScreen.storyboard in Resources */,
 				161A0E9821B64E15002FDE49 /* Assets.xcassets in Resources */,
-				16213C2821B7E43400E09709 /* textViewViewController.xib in Resources */,
 				161A0E9621B64E13002FDE49 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,18 +460,20 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-wobo/Pods-wobo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -419,16 +488,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				167450D321B702A40062CFE6 /* MainNavigationController.swift in Sources */,
+				1624A79321BBA60100F178FB /* ELVisitorViewController.swift in Sources */,
 				167450C921B671A00062CFE6 /* MeViewController.swift in Sources */,
 				161A0E9121B64E13002FDE49 /* AppDelegate.swift in Sources */,
-				167450C121B66C6A0062CFE6 /* MainTabBarItemContent.swift in Sources */,
+				161FCF1121C39A5500AA225F /* UserAccount.swift in Sources */,
+				161E12B021C6516100A0CB11 /* PopoverAnimator.swift in Sources */,
+				167450C121B66C6A0062CFE6 /* MainTabBarController.swift in Sources */,
 				167450C521B6718D0062CFE6 /* MessageViewController.swift in Sources */,
+				161FCF1321C4D43500AA225F /* UserAccountViewModel.swift in Sources */,
+				1624A79A21BBFBD300F178FB /* NetBaseUrl.swift in Sources */,
+				1624A78B21BB939D00F178FB /* BaseViewController.swift in Sources */,
+				1624A78E21BB985300F178FB /* WelcomeViewController.swift in Sources */,
 				167450C321B6717E0062CFE6 /* HomeViewController.swift in Sources */,
+				1624A7BC21BC1D1F00F178FB /* UIColor-Extension.swift in Sources */,
 				167450C721B671960062CFE6 /* DiscoverViewController.swift in Sources */,
+				161FCF0F21C364C500AA225F /* OAuthViewController.swift in Sources */,
 				167450CB21B6CA700062CFE6 /* Common.swift in Sources */,
 				167450D821B7C2670062CFE6 /* MaintabBar.swift in Sources */,
+				161FCF0D21BFEF3400AA225F /* NetworkTools.swift in Sources */,
+				161E12AE21C64E7600A0CB11 /* ELPresentationController.swift in Sources */,
+				161E12AC21C6358200A0CB11 /* TitleButton.swift in Sources */,
+				161E12AA21C6334F00A0CB11 /* PopoverViewController.swift in Sources */,
+				1624A79021BB990000F178FB /* ELVisitorView.swift in Sources */,
 				167450CD21B6E33A0062CFE6 /* UIButton-Extension.swift in Sources */,
-				16213C2321B7DB6600E09709 /* textViewViewController.swift in Sources */,
 				167450D021B6E7070062CFE6 /* UIBarButtonItem-Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +588,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -561,7 +643,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

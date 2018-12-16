@@ -8,23 +8,19 @@
 
 import UIKit
 
-class MeViewController: UIViewController {
+class MeViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "??", style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "!!", style: .done, target: self, action: nil)
+        visitorView.setupVisitorViewInfo("visitordiscover_image_profile", title: "登录后，你的微博、相册、个人资料会显示在这里，展示给别人")
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
+
+

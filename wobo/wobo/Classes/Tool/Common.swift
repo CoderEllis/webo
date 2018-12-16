@@ -8,10 +8,27 @@
 
 import UIKit
 
+// MARK: - UI常量
+///屏幕宽度
+let ScreenWidth = UIScreen.main.bounds.size.width
+///屏幕高度
+let ScreenHeight = UIScreen.main.bounds.size.height
+let ScreenScale = UIScreen.main.scale
 
-extension UIColor {
-    func RGB(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1) -> UIColor {
-        return UIColor.init(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: alpha)
-    }
-    
-}
+///状态栏高度
+let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+///导航栏高度
+let navigationHeight = (statusBarHeight + 44)
+///tabbar高度
+let tabBarHeight = (statusBarHeight == 44 ? 83 : 49)
+
+///顶部的安全距离
+let topSafeAreaHeight = (statusBarHeight - 20)
+///底部的安全距离
+let bottomSafeAreaHeight = (tabBarHeight - 49)
+
+
+// MARK:- 授权的常量
+let app_key = "2230450316"
+let app_secret = "5c901ea61007954c6719e24b3fd89fcb"
+let redirect_uri = "https://github.com/CoderEllis"

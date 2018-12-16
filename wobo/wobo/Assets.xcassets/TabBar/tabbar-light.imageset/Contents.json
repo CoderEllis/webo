@@ -1,7 +1,22 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 24,
+          "top" : 24,
+          "right" : 2,
+          "left" : 2
+        }
+      },
       "idiom" : "universal",
+      "filename" : "tabbar-light.png",
       "scale" : "1x"
     },
     {
@@ -13,14 +28,14 @@
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 9,
-          "top" : 9,
-          "right" : 11,
-          "left" : 10
+          "bottom" : 49,
+          "top" : 48,
+          "right" : 320,
+          "left" : 319
         }
       },
       "idiom" : "universal",
-      "filename" : "common_button_white_disable@2x.png",
+      "filename" : "tabbar-light@2x.png",
       "scale" : "2x"
     },
     {

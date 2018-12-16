@@ -16,6 +16,7 @@ class MainNavigationController: UINavigationController {
         /// 全局拖拽手势
         setUpGlobalPan()
         
+        defaultSetting()
     }
 }
 
@@ -41,13 +42,13 @@ extension MainNavigationController: UIGestureRecognizerDelegate {
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         if children.count > 0 {
-            //隐藏 tabbar
-//            viewController.hidesBottomBarWhenPushed = true 
+            //跳转时隐藏 tabbar
+            viewController.hidesBottomBarWhenPushed = true 
             var title = "返回"
             if children.count == 1 {
                 title = children.first?.title ?? "返回"
             } 
-            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, imageName: "navigationbar_back_withtext", tatget: self, action: #selector(back))
+            viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title, imageName: "navigationbar_back_withtext", tatget: self, action: #selector(back))
         }
         super .pushViewController(viewController, animated: animated)
     }
@@ -56,24 +57,27 @@ extension MainNavigationController: UIGestureRecognizerDelegate {
         popViewController(animated: true)
     }
     
-    func defaultSetting(){
-        
+
+}
+          
+
+// MARK: - 导航栏UI 样式
+extension MainNavigationController {
+    
+    //全局设置外观
+    fileprivate func defaultSetting() {
         //导航栏的背景色与标题设
-        self.navigationBar.barStyle = UIBarStyle.default
-        self.navigationBar.barTintColor = UIColor.white
-        self.navigationBar.isTranslucent = false
-        self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red,NSAttributedString.Key.font:UIFont.systemFont(ofSize:17)]
-//        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
-        
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red,NSAttributedString.Key.font:UIFont.systemFont(ofSize:17)]
+        navigationBar.setBackgroundImage(UIImage(named: "navigationbarBackgroundWhite"), for: UIBarMetrics.default)
+        UINavigationBar.appearance().tintColor = UIColor.orange
     }
+    
+    
     override var childForStatusBarStyle: UIViewController? {
         return visibleViewController
     }
-
-    
     
 }
-            
         
 //自定义UIButton替换导航返回按钮,仍然保持系统边缘返回手势-[UIViewController preferredStatusBarStyle]
 //extension MainNavigationController: UINavigationControllerDelegate {

@@ -23,6 +23,8 @@ class MaintabBar: UITabBar {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //        tabBar.isTranslucent = false//取消半透明
+    //        tabBar.backgroundImage = UIImage(named: "tabbar-light")
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -32,8 +34,7 @@ class MaintabBar: UITabBar {
         var index : CGFloat = 0
         for view in subviews {
             if view.isKind(of: NSClassFromString("UITabBarButton")!) {
-                view.frame.size.width = width
-                view.frame.origin.x = index * width
+                view.frame = CGRect(x: index * width, y: 0, width: width, height: 49)
                 index += 1
                 if index == 2 {
                     composeBtn.frame.size = CGSize(width: (composeBtn.currentBackgroundImage?.size.width)!, height: (composeBtn.currentBackgroundImage?.size.height)!)
@@ -42,8 +43,6 @@ class MaintabBar: UITabBar {
             }
         }
         composeBtn.center = CGPoint(x: frame.width * 0.5, y: 49 * 0.5)
-        
-        
     }
 
      /// 如果按钮凸出的话,重写hitTest方法 让凸出的部分也响应点击
@@ -67,10 +66,11 @@ class MaintabBar: UITabBar {
     }
     
     
+    /// 中间的 view
     @objc fileprivate func composeBtnClick() { 
-        let composeVc = UIViewController()
+        let composeVc = ELVisitorViewController()
         composeVc.view.backgroundColor = UIColor.magenta
-        window?.rootViewController?.present(UINavigationController(rootViewController: composeVc), animated: true, completion: nil)
+        window?.rootViewController?.present(composeVc, animated: true, completion: nil)
         
     }
 }

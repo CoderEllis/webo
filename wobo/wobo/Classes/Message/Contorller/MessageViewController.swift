@@ -11,26 +11,36 @@
 
 import UIKit
 
-class MessageViewController: UIViewController {
+class MessageViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupNavigationBar()
 
-        view.backgroundColor = UIColor.red
-        // Do any additional setup after loading the view.
+        visitorView.setupVisitorViewInfo("visitordiscover_image_message", title: "登录后，别人评论你的微博，给你发消息，都会在这里收到通知")
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    /*
-    // MARK: - Navigation
+      
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+
+
+// MARK:- 设置UI界面
+extension MessageViewController{ 
+    fileprivate func setupNavigationBar(){ 
+        navigationItem.leftBarButtonItem = UIBarButtonItem("", tatget: self, action: #selector(btnClick))
+        navigationItem.rightBarButtonItem = UIBarButtonItem("", tatget: self, action: #selector(btnClick))
     }
-    */
+    
+}
 
+// MARK: - 事件监听
+extension MessageViewController {
+    @objc fileprivate func btnClick() {
+        print("左右按钮")
+}
 }
