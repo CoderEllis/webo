@@ -191,7 +191,7 @@ extension NetworkTools {
             }
 //            print(response)
             if let json = response.result.value {
-                let resultDict = json as! Dictionary<String,AnyObject> 
+                let resultDict = json as! Dictionary<String,Any> 
 //                    print("------\(resultDict)")
                 finished(resultDict,nil)  
             }
@@ -210,7 +210,7 @@ extension NetworkTools {
                 return
             }
             if let json = response.result.value {
-                let userDic = json as! Dictionary<String,AnyObject>
+                let userDic = json as! Dictionary<String,Any>
                 finished(userDic,nil)
                 
             }
@@ -218,4 +218,155 @@ extension NetworkTools {
     }
     
     
+    // MARK:- 请求首页数据
+    ///请求首页数据
+    func loadStatuses(_ since_id: Int, _ max_id: Int, finished: @escaping(_ result: [[String: Any]]?, _ error: Error?) -> ()) {
+        let urlString = "https://api.weibo.com/2/statuses/home_timeline.json?"
+        // 2.获取请求的参数  since_id 包装成字符串
+        let access_token = (UserAccountViewModel.shareIntance.account?.access_token)!
+        let parameters = ["access_token": access_token, "since_id": "\(since_id)", "max_id": "\(max_id)"]
+        request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            guard response.result.isSuccess else {
+                finished(nil,response.error)
+                return
+            }
+//            print(response)
+            if let value = response.result.value {
+                let json = JSON(value)
+                if let data = json.dictionaryObject {
+                    finished(data["statuses"] as? [[String: Any]],nil)
+                } else {
+                    print("失败")
+                }
+            }
+        }  
+    }
+    
+    ///发送微博
+    func sendStatus(_ statusText: String, isSuccess: @escaping (_ isSuccess: Bool) -> ()) {
+        let urlString = "https://api.weibo.com/2/statuses/update.json"
+        let access_token = (UserAccountViewModel.shareIntance.account?.access_token)!
+        let parameters = ["access_token": access_token, "status": statusText]
+        request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            guard response.result.isSuccess else {
+                isSuccess(false)
+                return
+            }
+            isSuccess(true)
+        }
+    }
+    
+    ///发送微博并且携带照片
+    func sendStatus(_ statusText: String, image: UIImage, isSuccess: @escaping (_ isSuccess: Bool) -> ()) {
+        let urlString = "https://api.weibo.com/2/statuses/upload.json"
+        let parameters = ["access_token" : (UserAccountViewModel.shareIntance.account?.access_token)!, "status": statusText]
+        
+        upload(multipartFormData: { (formData) in
+            if let imageData = image.jpegData(compressionQuality: 0.5) {
+                formData.append(imageData, withName: "appPhoto", fileName: "img.png", mimeType: "image/png")
+            }
+            
+            for (key, value) in parameters {
+                formData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+            }
+        }, usingThreshold: SessionManager.multipartFormDataEncodingMemoryThreshold, to: urlString, method: .post, headers: nil) { (result) in
+            switch result {
+            case .success(request: let upload, streamingFromDisk: _, streamFileURL: _):
+                upload.uploadProgress(queue: DispatchQueue.global(qos: .utility), closure: { (progress) in
+                    print(progress)
+                })
+                upload.responseJSON(completionHandler: { (response) in
+                    switch response.result {
+                    case .success(_):    
+                        isSuccess(true)
+                    case .failure(_):
+                        isSuccess(false)
+                    }
+                })
+            case .failure(_):
+                isSuccess(false) 
+            }
+            }
+    }
+    
+    
+//    if let json = response.result.value {
+//        let data = json as! Dictionary<String,Any>
+//        
+//        finished(data["statuses"]as? [[String: Any]],nil)
+//    }
+    
+    /*
+     class NetWorkTool{
+     class func requestData(type : MethodType,url : String , parameters : Parameters? = nil , finishCallback : @escaping ( _ respont : AnyObject)->() ){
+     let temp = type == .GET ? HTTPMethod.get : HTTPMethod.post
+     Alamofire.request(url, method : temp, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON {
+     (response) in
+     guard response.result.value != nil else{
+     mPrint(pl: response.error!)
+     return
+     }
+     finishCallback(response.value as AnyObject)
+     }
+     }
+     
+     class func requestData(type : MethodType,url : String , parameters : Parameters? = nil ,headers : [String: String]? = nil, finishCallback : @escaping ( _ respont : AnyObject)->() ){
+     let temp = type == .GET ? HTTPMethod.get : HTTPMethod.post
+     Alamofire.request(url, method: temp, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON {
+     (response) in
+     guard response.result.value != nil else{
+     mPrint(pl:"————————————————————————————请求失败\(response.error!)————————————————————————")
+     return
+     }
+     finishCallback(response.value as AnyObject)
+     }
+     }
+     /*短信验证码*/
+     class func smsRequest(phone :String,templateId : String) -> String{
+     //随机数
+     var random :[String] = ["\(Int(arc4random_uniform(899999) + 100000))"]
+     //用户id
+     let sid = "8a216da85b8e6bb1015ba87e9e470808"
+     //令牌
+     let token = "117c29456e24416da39b225be6e223aa"
+     //当前时间
+     let nowTime = MyTools.dateNow
+     //sig参数 md5加密 字符串大写
+     let sig = "\(sid)\(token)\(MyTools.timeToFormate(time: nowTime,state: 2))".md5().uppercased()
+     let smsHeadRequestURL = "/2013-12-26/Accounts/\(sid)/SMS/TemplateSMS?sig=\(sig)"
+     //请求地址
+     //        let smsURL = "https://app.cloopen.com:8883"+"\(smsHeadRequestURL)"
+     let smsURL = "http://sytest.canta.com.cn/index.php/jkindex/testsms"
+     let auth = MyTools.base64Encoding(plainString:  ("\(sid)"+":"+"\(MyTools.timeToFormate(time: nowTime, state: 2))"))
+     
+     //请求头
+     let head : [String : String] = ["Accept":"application/json","Content-Type":"application/json;charset=utf-8","content-length":"300","Authorization":"\(auth)"]
+     //请求体{"appId":"8a216da85b8e6bb1015ba87e9e470808","datas":["11111","222"],"templateId":"236875","to":"17702404552"}
+     let body : [String : Any] = ["appId":"\(sid)","datas": "\(random)","templateId":"\(templateId)","to":"\(phone)"]
+     requestData(type: .POST, url: smsURL, parameters: body,headers: head) { ( response) in
+     let json = JSON(response)
+     mPrint(pl:json)
+     //status:200
+     guard let status = json["statusCode"].string else{
+     mPrint(pl: "null")
+     return
+     }
+     guard status == "000000" else{
+     mPrint(pl: status)
+     return
+     }
+     guard let smsMessageSid = json["smsMessageSid"].string else {
+     return
+     }
+     guard smsMessageSid == "236875" else{
+     mPrint(pl: "模板不对")
+     return
+     }
+     mPrint(pl: "成功")
+     }
+     return random[0]
+     }
+     }
+     
+     */
 }

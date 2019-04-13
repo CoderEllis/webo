@@ -33,4 +33,16 @@ extension UIBarButtonItem {
         btn.sizeToFit()
         self.init(customView: btn)
     }
+    
+    ///工具栏按钮
+    convenience init(imageName: String,tag: Int, tatget: Any?, action: Selector) {
+        let btn = UIButton(type: .custom)
+        btn.setImage(UIImage(named: imageName), for: .normal)
+        btn.setImage(UIImage(named: imageName + "_highlighted"), for: .highlighted)
+        btn.addTarget(tatget, action: action, for: .touchUpInside)
+        btn.sizeToFit()
+        btn.tag = tag
+        self.init(customView: btn)
+    }
+    
 }

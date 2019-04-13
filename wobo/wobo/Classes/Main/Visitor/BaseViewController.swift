@@ -8,10 +8,9 @@
 
 import UIKit
 
-class BaseViewController: UITableViewController {
+class BaseViewController: UITableViewController {    
+    lazy var visitorView  = ELVisitorView()
     
-    lazy var visitorView : ELVisitorView = ELVisitorView()
-
      // MARK:- 定义变量
     var isLogin : Bool =  UserAccountViewModel.shareIntance.isLogin
     
@@ -23,6 +22,7 @@ class BaseViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItems()
+        
     }
     
     

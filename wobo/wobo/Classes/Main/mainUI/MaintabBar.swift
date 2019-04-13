@@ -9,12 +9,11 @@
 import UIKit
 
 class MaintabBar: UITabBar {
-    fileprivate lazy var composeBtn = UIButton(imageName: "tabbar_compose_icon_add", bgImageName: "tabbar_compose_button")
+    lazy var composeBtn = UIButton(imageName: "tabbar_compose_icon_add", bgImageName: "tabbar_compose_button")
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        composeBtn.addTarget(self, action: #selector(composeBtnClick), for: .touchUpInside)
         addSubview(composeBtn)
         
     }
@@ -65,12 +64,4 @@ class MaintabBar: UITabBar {
         }
     }
     
-    
-    /// 中间的 view
-    @objc fileprivate func composeBtnClick() { 
-        let composeVc = ELVisitorViewController()
-        composeVc.view.backgroundColor = UIColor.magenta
-        window?.rootViewController?.present(composeVc, animated: true, completion: nil)
-        
-    }
 }

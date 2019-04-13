@@ -16,9 +16,9 @@ class OAuthViewController: UIViewController, UIWebViewDelegate{
         return webView
     }()
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {//RGB(r: 232, g: 234, b: 236)
         super.viewDidLoad()
-        view.backgroundColor = RGB(r: 232, g: 234, b: 236)
+        view.backgroundColor = UIColor.init(r: 232, g: 234, b: 236)
 
         setUpWebVC()
         setupNavigationBar()

@@ -46,7 +46,7 @@ class ELVisitorView: UIView {
     }
     
     fileprivate func setupUI() {
-        backgroundColor = RGBV(v: 235)
+        backgroundColor = UIColor.init(rgb: 232)
         addSubview(feedImageView)
         addSubview(maskImageView)
         addSubview(iconImageView)

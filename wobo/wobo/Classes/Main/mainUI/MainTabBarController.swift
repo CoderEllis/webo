@@ -21,6 +21,7 @@ class MainTabBarController: UITabBarController {
         let tabbar = MaintabBar()
         setValue(tabbar, forKey: "tabBar")
 
+        tabbar.composeBtn.addTarget(self, action: #selector(composeBtnClick), for: .touchUpInside)
     }
 
     
@@ -68,3 +69,12 @@ extension MainTabBarController {
      
 }
 
+
+// MARK: - 点击事件
+extension MainTabBarController {
+    /// 中间的 view
+    @objc func composeBtnClick() {
+        let composeVc = ComposeViewController()
+        present(UINavigationController(rootViewController: composeVc), animated: true, completion: nil)
+    }
+}
