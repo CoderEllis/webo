@@ -13,14 +13,45 @@ import SVProgressHUD
 private let PhotoBrowserCell = "PhotoBrowserCell"
 
 class PhotoBrowserController: UIViewController {
-
+    /// 图片内容缩张模式
+    open var contentMode: UIView.ContentMode = .scaleAspectFill
+    
     var indexPath : IndexPath
     var picURLs : [URL]
+    
+    /// 是否需要遮盖状态栏。默认true
+    open var isNeedCoverStatusBar = true
+    
+    typealias panChangedCallback  = (_ scale: CGFloat) -> Void?
+    var originFrameCallback: panChangedCallback
+    
+    /// 保存原windowLevel
+    open var originWindowLevel: UIWindow.Level?
+    
+    /// 遮盖状态栏。以改变windowLevel的方式遮盖
+    /// - parameter cover: true-遮盖；false-不遮盖
+    open func coverStatusBar(_ cover: Bool) {
+        guard isNeedCoverStatusBar else {
+            return
+        }
+        guard let window = view.window ?? UIApplication.shared.keyWindow else {
+            return
+        }
+        if originWindowLevel == nil {
+            originWindowLevel = window.windowLevel
+        }
+        guard let originLevel = originWindowLevel else {
+            return
+        }
+        window.windowLevel = cover ? .statusBar : originLevel
+    }
+    
     
     private lazy var collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PhotoBrowserCollectionViewLayout())
     private lazy var saveBtn = UIButton(bgColor: UIColor.gray, fontSize: 14, title: "保 存")
     
-    init(indexPath : IndexPath, picURLs: [URL]) {
+    init(indexPath : IndexPath, picURLs: [URL], back: @escaping panChangedCallback) {
+        self.originFrameCallback = back
         self.indexPath = indexPath
         self.picURLs = picURLs
         super.init(nibName: nil, bundle: nil)
@@ -43,13 +74,17 @@ class PhotoBrowserController: UIViewController {
         setupUI()
         collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
     }
-    
+    deinit {
+        print("销毁了")
+    }
 }
 
 
 // MARK: - UI
 extension PhotoBrowserController {
     private func setupUI() {
+        collectionView.backgroundColor = UIColor.clear
+        view.backgroundColor = UIColor.clear
         view.addSubview(collectionView)
         view.addSubview(saveBtn)
         
@@ -66,7 +101,7 @@ extension PhotoBrowserController {
         
         collectionView.register(PhotoBrowserViewCell.self, forCellWithReuseIdentifier: PhotoBrowserCell)
         collectionView.dataSource = self
-        
+        collectionView.delegate = self
         saveBtn.addTarget(self, action: #selector(saveBthClick), for: .touchUpInside)
     }
 }
@@ -107,7 +142,7 @@ extension PhotoBrowserController {
 
 
 // MARK: - UICollectionViewDataSourc数据源
-extension PhotoBrowserController: UICollectionViewDataSource {
+extension PhotoBrowserController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return picURLs.count
     }
@@ -119,9 +154,34 @@ extension PhotoBrowserController: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? PhotoBrowserViewCell else {
+            return
+        }
+        
+        cell.imageview.contentMode = contentMode
+        // 绑定 Cell 回调事件
+        // 拖
+        cell.panChangedCallback = { scale in
+            // 实测用scale的平方，效果比线性好些
+            let alpha = scale * scale
+            self.originFrameCallback(alpha)
+            // 半透明时重现状态栏，否则遮盖状态栏
+            self.coverStatusBar(scale > 0.95)
+        }
+        // 拖完松手
+        cell.panReleasedCallback = { isDown in
+            if isDown {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.originFrameCallback(1.0)
+            }
+        }
+        
+    }
 }
 
-//cell代理
+//cell手势代理
 extension PhotoBrowserController: PhotoBrowserViewCellDelegate {
     func imageViewClick() {
         closeBtnClick()

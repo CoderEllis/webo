@@ -132,7 +132,9 @@ extension HomeViewController {
         let object = note.object as! PicCollectionView
         
         
-        let photoBrowserVc = PhotoBrowserController(indexPath: indexPath, picURLs: picURLs)
+        let photoBrowserVc = PhotoBrowserController(indexPath: indexPath, picURLs: picURLs) { [weak self](alph) -> Void? in
+            self?.photoBrowserAnimator.maskAlpha = alph
+        }
         // 2.设置modal样式 跳转方式
         photoBrowserVc.modalPresentationStyle = .custom
         

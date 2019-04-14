@@ -30,6 +30,16 @@ class PhotoBrowserAnimator: NSObject {
     deinit {
         print("PhotoBrowserAnimator----销毁")
     }
+    private weak var presentCtrl: PhotoBrowserPresentationController?
+    
+    public var maskAlpha: CGFloat {
+        set {
+            presentCtrl?.maskView.alpha = newValue
+        }
+        get {
+            return presentCtrl?.maskView.alpha ?? 0
+        }
+    }
     
 }
 
@@ -45,7 +55,11 @@ extension PhotoBrowserAnimator: UIViewControllerTransitioningDelegate {
         isPresented = false
         return self
     }
-    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        let ctrl = PhotoBrowserPresentationController(presentedViewController: presented, presenting: presenting)
+        presentCtrl = ctrl
+        return ctrl
+    }
 }
 
 extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {

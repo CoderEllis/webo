@@ -52,6 +52,7 @@
 		163AB67621CB8C35005AF473 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163AB67421CB8C35005AF473 /* HomeTableViewCell.swift */; };
 		163AB67721CB8C35005AF473 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 163AB67521CB8C35005AF473 /* HomeTableViewCell.xib */; };
 		163AB67921CB8E20005AF473 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163AB67821CB8E20005AF473 /* Status.swift */; };
+		164EF973226218160085C78A /* PhotoBrowserPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164EF972226218150085C78A /* PhotoBrowserPresentationController.swift */; };
 		167450C121B66C6A0062CFE6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C021B66C6A0062CFE6 /* MainTabBarController.swift */; };
 		167450C321B6717E0062CFE6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C221B6717E0062CFE6 /* HomeViewController.swift */; };
 		167450C521B6718D0062CFE6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167450C421B6718D0062CFE6 /* MessageViewController.swift */; };
@@ -111,6 +112,7 @@
 		163AB67421CB8C35005AF473 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		163AB67521CB8C35005AF473 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		163AB67821CB8E20005AF473 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		164EF972226218150085C78A /* PhotoBrowserPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowserPresentationController.swift; sourceTree = "<group>"; };
 		167450C021B66C6A0062CFE6 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		167450C221B6717E0062CFE6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		167450C421B6718D0062CFE6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				1610770021E0A223000BC595 /* PhotoBrowserViewCell.swift */,
 				1610770221E0A6DF000BC595 /* ProgressView.swift */,
 				16241AB921E2436F00FBDFDF /* PhotoBrowserAnimator.swift */,
+				164EF972226218150085C78A /* PhotoBrowserPresentationController.swift */,
 			);
 			path = PhotoBrowser;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				167450D321B702A40062CFE6 /* MainNavigationController.swift in Sources */,
 				167450C921B671A00062CFE6 /* MeViewController.swift in Sources */,
 				161076ED21DE2D9C000BC595 /* EmoticonPackage.swift in Sources */,
+				164EF973226218160085C78A /* PhotoBrowserPresentationController.swift in Sources */,
 				1622EB0E21CFAE7D00D3F7C5 /* PicViewCell.swift in Sources */,
 				161A0E9121B64E13002FDE49 /* AppDelegate.swift in Sources */,
 				1631420821D636CD0040787C /* ComposeTitleView.swift in Sources */,
