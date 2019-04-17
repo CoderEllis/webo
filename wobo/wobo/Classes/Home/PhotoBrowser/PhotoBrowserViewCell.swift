@@ -10,7 +10,14 @@ import UIKit
 import Kingfisher
 
 protocol PhotoBrowserViewCellDelegate: NSObjectProtocol {
-    func imageViewClick()
+    /// 单击
+    func imageViewOneClick()
+    ///长按
+    func imageViewLongClick()
+    /// 图片拖动时
+    func panChangedCallback(_ scale: CGFloat)
+    /// 图片拖动松手回调。isDown: 是否向下
+    func panReleasedCallback(_ isDown: Bool)
 }
 
 class PhotoBrowserViewCell: UICollectionViewCell {
@@ -23,10 +30,28 @@ class PhotoBrowserViewCell: UICollectionViewCell {
 
     weak var delegate : PhotoBrowserViewCellDelegate?
     
-    private lazy var scrollView = UIScrollView()
+    /// 图片允许的最大放大倍率
+    open var imageMaximumZoomScale: CGFloat = 3.0
+    
+    //图片容器
+    private lazy var scrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.frame = contentView.bounds
+        scrollView.frame.size.width -= 20
+        scrollView.maximumZoomScale = imageMaximumZoomScale
+        scrollView.minimumZoomScale = 1.0
+        scrollView.delegate = self
+//        scrollView.showsVerticalScrollIndicator = false
+//        scrollView.showsHorizontalScrollIndicator = false
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        }
+        return scrollView   
+    }()
+    
     lazy var imageview: UIImageView = {
-        let iv = UIImageView()
-        return iv
+        let imageView = UIImageView()
+        return imageView
     }()
     private lazy var progressView = ProgressView()
     
@@ -36,7 +61,7 @@ class PhotoBrowserViewCell: UICollectionViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     deinit {
         print("PhotoBrowserViewCell----销毁")
@@ -56,24 +81,37 @@ class PhotoBrowserViewCell: UICollectionViewCell {
 }
 
 
-// MARK: - UI
+// MARK: - setUI
 extension PhotoBrowserViewCell {
     private func  setupUI() {
         contentView.addSubview(scrollView)
         contentView.addSubview(progressView)
         scrollView.addSubview(imageview)
         
-        scrollView.frame = contentView.bounds
-        scrollView.frame.size.width -= 20
-//        scrollView.alpha = 0
         progressView.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
         progressView.center = CGPoint(x: UIScreen.main.bounds.width * 0.5, y: UIScreen.main.bounds.height * 0.5)
         progressView.isHidden = false
         progressView.backgroundColor = UIColor.clear
         
-        let tapGes = UITapGestureRecognizer(target: self, action: #selector(imageViewClick))
-        imageview.addGestureRecognizer(tapGes)
-        imageview.isUserInteractionEnabled = true //开动用户交互
+        
+        // 长按手势
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
+        contentView.addGestureRecognizer(longPress)
+        
+        // 双击手势
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(onDoubleClick(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        contentView.addGestureRecognizer(doubleTap)
+        
+        // 单击手势
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(onClick))
+        contentView.addGestureRecognizer(singleTap)
+        // 优先识别 双击
+        singleTap.require(toFail: doubleTap)
+        
+        
+//        imageview.isUserInteractionEnabled = true //开动用户交互
+        imageview.clipsToBounds = true
         
         // 拖动手势
         let pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
@@ -85,8 +123,33 @@ extension PhotoBrowserViewCell {
 
 // MARK:- 事件监听
 extension PhotoBrowserViewCell {
-    @objc private func imageViewClick() {
-        delegate?.imageViewClick()
+    
+    /// 响应单击
+    @objc private func onClick() {
+        delegate?.imageViewOneClick()
+    }
+    
+    /// 响应长按
+    @objc private func onLongPress(_ press: UILongPressGestureRecognizer) {
+        if press.state == .began {
+            delegate?.imageViewLongClick()
+        }
+    }
+    
+    /// 响应双击
+    @objc private func onDoubleClick(_ tap: UITapGestureRecognizer) {
+        // 如果当前没有任何缩放，则放大到目标比例，否则重置到原比例
+        if scrollView.zoomScale == 1.0 {
+            // 以点击的位置为中心，放大
+            let pointInView = tap.location(in: imageview)
+            let width = scrollView.bounds.size.width / scrollView.maximumZoomScale
+            let height = scrollView.bounds.size.height / scrollView.maximumZoomScale
+            let x = pointInView.x - (width / 2.0)
+            let y = pointInView.y - (height / 2.0)
+            scrollView.zoom(to: CGRect(x: x, y: y, width: width, height: height), animated: true)
+        } else {
+            scrollView.setZoomScale(1.0, animated: true)
+        }
     }
     
     /// 响应拖动
@@ -102,10 +165,12 @@ extension PhotoBrowserViewCell {
             let result = panResult(pan)
             imageview.frame = result.0
             panChangedCallback?(result.1)
+            delegate?.panChangedCallback(result.1)
         case .ended, .cancelled:
             imageview.frame = panResult(pan).0
             let isDown = pan.velocity(in: self).y > 0
-            self.panReleasedCallback?(isDown)
+            panReleasedCallback?(isDown)
+            delegate?.panReleasedCallback(isDown)
             if !isDown {
                 resetImageView()
             }
@@ -113,6 +178,12 @@ extension PhotoBrowserViewCell {
             resetImageView()
         }
     }
+    
+}
+
+
+// MARK: - 计算属性
+extension PhotoBrowserViewCell {
     
     /// 计算拖动时图片应调整的frame和scale值
     private func panResult(_ pan: UIPanGestureRecognizer) -> (CGRect, CGFloat) {
@@ -139,12 +210,6 @@ extension PhotoBrowserViewCell {
         return (CGRect(x: x.isNaN ? 0 : x, y: y.isNaN ? 0 : y, width: width, height: height), scale)
     }
     
-    
-}
-
-
-// MARK: - 计算属性
-extension PhotoBrowserViewCell {
     /// 复位ImageView
     private func resetImageView() {
         // 如果图片当前显示的size小于原size，则重置为原size
@@ -211,26 +276,35 @@ extension PhotoBrowserViewCell {
         guard let image = KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: picURL.absoluteString) else {
             return
         }
+        imageview.frame = framSize(image.size)
+        progressView.isHidden = false
+        scrollView.contentSize = CGSize(width: 0, height: imageview.frame.size.height)
         
+        imageview.kf.setImage(with: getBigURL(picURL), placeholder: image, options: [], progressBlock: { (current, total) in
+            self.progressView.progress = CGFloat(current) / CGFloat(total)
+        }) { (image, _, _, _) in
+            self.progressView.isHidden = true
+            
+            guard let ima = image else { return }
+//            self.imageview.frame = self.getImageViewFrame(ima.size)
+            self.imageview.image = ima
+            self.imageview.frame = self.framSize(ima.size)
+            self.scrollView.contentSize = self.imageview.frame.size 
+        }
+        
+        
+    }
+    
+    func framSize(_ size: CGSize) -> CGRect {
         let width = UIScreen.main.bounds.width
-        let height = width / image.size.width * image.size.height
+        let height = width / size.width * size.height
         var y : CGFloat = 0
         if height > UIScreen.main.bounds.height {
             y = 0
         } else {
             y = (UIScreen.main.bounds.height - height) * 0.5
         }
-        
-        imageview.frame = CGRect(x: 0, y: y, width: width, height: height)
-        
-        progressView.isHidden = false
-        imageview.kf.setImage(with: getBigURL(picURL), placeholder: image, options: [], progressBlock: { (current, total) in
-            self.progressView.progress = CGFloat(current) / CGFloat(total)
-        }) { (_, _, _, _) in
-            self.progressView.isHidden = true
-        }
-        
-        scrollView.contentSize = CGSize(width: width, height: height)
+        return CGRect(x: 0, y: y, width: width, height: height)
     }
     
     //切换大图URL
@@ -239,7 +313,52 @@ extension PhotoBrowserViewCell {
         let bigURLString = smallURLString.replacingOccurrences(of: "thumbnail", with: "bmiddle")
         return URL(string: bigURLString)!
     }
-    
+    // 获取imageView frame 
+    func getImageViewFrame(_ size: CGSize) -> CGRect {
+        if ScreenWidth < ScreenHeight {
+            if size.width > ScreenWidth {
+                let height = ScreenWidth * (size.height / size.width)
+                if height <= ScreenHeight {
+                    let frame = CGRect(x: 0, y: ScreenHeight/2 - height/2, width: ScreenWidth, height: height)
+                    return frame
+                } else {
+                    let frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: height)
+                    return frame
+                }
+            } else {
+                let frame = CGRect(x: ScreenWidth/2 - size.width/2, y: ScreenHeight/2 - size.height/2, width: size.width, height: size.height)
+                return frame
+            }
+        } else {
+            if size.height > ScreenHeight {
+                let width = ScreenHeight * (size.width / size.height)
+                if width <= ScreenWidth {
+                    let frame = CGRect(x: ScreenWidth/2 - width/2, y: 0, width: width, height: ScreenHeight)
+                    return frame
+                } else {
+                    let frame = CGRect(x: 0, y: 0, width: width, height: ScreenHeight)
+                    return frame
+                }
+            } else {
+                let frame = CGRect(x: ScreenWidth/2 - size.width/2, y: ScreenHeight/2 - size.height/2, width: size.width, height: size.height)
+                return frame
+            }
+        }
+    }
+}
+
+
+
+// MARK: - UIScrollViewDelegate
+extension PhotoBrowserViewCell: UIScrollViewDelegate {
+    // 设置UIScrollView中要缩放的视图
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageview
+    }
+    // 让UIImageView在UIScrollView缩放后居中显示
+    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        imageview.center = resettingCenter
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate

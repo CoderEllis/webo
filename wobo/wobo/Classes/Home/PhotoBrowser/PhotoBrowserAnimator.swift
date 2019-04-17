@@ -64,7 +64,7 @@ extension PhotoBrowserAnimator: UIViewControllerTransitioningDelegate {
 
 extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.5
+        return 0.3
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -122,7 +122,7 @@ extension PhotoBrowserAnimator: UIViewControllerAnimatedTransitioning {
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { 
             imageView.frame = presentedDelegate.startRect(indexPath)
         }) { (_) in
-            dismissView?.removeFromSuperview()
+//            dismissView?.removeFromSuperview()
             transitionContext.completeTransition(true)
         }
     }

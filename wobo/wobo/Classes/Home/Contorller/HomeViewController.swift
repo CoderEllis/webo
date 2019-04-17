@@ -135,8 +135,6 @@ extension HomeViewController {
         let photoBrowserVc = PhotoBrowserController(indexPath: indexPath, picURLs: picURLs) { [weak self](alph) -> Void? in
             self?.photoBrowserAnimator.maskAlpha = alph
         }
-        // 2.设置modal样式 跳转方式
-        photoBrowserVc.modalPresentationStyle = .custom
         
         // 3.设置转场的代理
         photoBrowserVc.transitioningDelegate = photoBrowserAnimator
