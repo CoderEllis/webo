@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 
+///手势回调可以选择闭包或者代理协议
 protocol PhotoBrowserViewCellDelegate: NSObjectProtocol {
     /// 单击
     func imageViewOneClick()
@@ -74,10 +75,10 @@ class PhotoBrowserViewCell: UICollectionViewCell {
     private var beganTouch = CGPoint.zero
     
     /// 图片拖动时回调
-    open var panChangedCallback: ((_ scale: CGFloat) -> Void)?
+//    open var panChangedCallback: ((_ scale: CGFloat) -> ())?
     
     /// 图片拖动松手回调。isDown: 是否向下
-    open var panReleasedCallback: ((_ isDown: Bool) -> Void)?
+//    open var panReleasedCallback: ((_ isDown: Bool) -> ())?
 }
 
 
@@ -164,12 +165,12 @@ extension PhotoBrowserViewCell {
         case .changed:
             let result = panResult(pan)
             imageview.frame = result.0
-            panChangedCallback?(result.1)
+//            panChangedCallback?(result.1)
             delegate?.panChangedCallback(result.1)
         case .ended, .cancelled:
             imageview.frame = panResult(pan).0
             let isDown = pan.velocity(in: self).y > 0
-            panReleasedCallback?(isDown)
+//            panReleasedCallback?(isDown)
             delegate?.panReleasedCallback(isDown)
             if !isDown {
                 resetImageView()

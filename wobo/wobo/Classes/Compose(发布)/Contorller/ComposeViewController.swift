@@ -169,7 +169,7 @@ extension ComposeViewController {
     
     @objc func keyboardWillChangeFrame(_ note: Notification)  {
 //        print(note.userInfo as Any)
-        // 1.获取动画执行的时间
+        // 1.获取动画执行的时间keyboardWillChangeFrameNotification
         let duration = note.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
         
         // 2.获取键盘最终Y值

@@ -82,7 +82,7 @@ public class ELLabel: UILabel {
     private var tapHandlerType = TapHandlerType.noneHandle
     
     //typealias 类型别名
-    public typealias ELTapHandler = (ELLabel, String, NSRange) -> Void
+    public typealias ELTapHandler = (ELLabel, String, NSRange) -> ()
     public var linkTapHandler : ELTapHandler?
     public var topicTapHandler : ELTapHandler?
     public var userTapHandler : ELTapHandler?

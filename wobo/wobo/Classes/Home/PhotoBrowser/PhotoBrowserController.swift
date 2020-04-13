@@ -23,7 +23,7 @@ class PhotoBrowserController: UIViewController {
     open var isNeedCoverStatusBar = true
     
     //转场蒙版View背景回调
-    typealias bgTransitionMask  = (_ scale: CGFloat) -> Void?
+    typealias bgTransitionMask  = (_ scale: CGFloat) -> ()
     var originFrameCallback: bgTransitionMask
     
     /// 保存原windowLevel
@@ -217,7 +217,7 @@ extension PhotoBrowserController: PhotoBrowserViewCellDelegate {
     
     func panReleasedCallback(_ isDown: Bool) {
         if isDown {
-            self.closeBtnClick()
+            closeBtnClick()
         } else {
             self.originFrameCallback(1.0)
         }

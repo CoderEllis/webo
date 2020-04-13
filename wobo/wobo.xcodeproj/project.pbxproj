@@ -404,8 +404,8 @@
 			isa = PBXGroup;
 			children = (
 				161E12A921C6334F00A0CB11 /* PopoverViewController.swift */,
-				161E12AD21C64E7600A0CB11 /* ELPresentationController.swift */,
 				161E12AF21C6516100A0CB11 /* PopoverAnimator.swift */,
+				161E12AD21C64E7600A0CB11 /* ELPresentationController.swift */,
 			);
 			path = UIPopover;
 			sourceTree = "<group>";
@@ -441,10 +441,10 @@
 			isa = PBXGroup;
 			children = (
 				163141FD21D625570040787C /* PhotoBrowserController.swift */,
-				1610770021E0A223000BC595 /* PhotoBrowserViewCell.swift */,
-				1610770221E0A6DF000BC595 /* ProgressView.swift */,
 				16241AB921E2436F00FBDFDF /* PhotoBrowserAnimator.swift */,
 				164EF972226218150085C78A /* PhotoBrowserPresentationController.swift */,
+				1610770021E0A223000BC595 /* PhotoBrowserViewCell.swift */,
+				1610770221E0A6DF000BC595 /* ProgressView.swift */,
 			);
 			path = PhotoBrowser;
 			sourceTree = "<group>";

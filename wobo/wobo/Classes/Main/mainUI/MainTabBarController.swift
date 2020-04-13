@@ -54,13 +54,15 @@ extension MainTabBarController {
         //富文本
         let attrsNormal = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)]
         UITabBarItem.appearance().setTitleTextAttributes(attrsNormal, for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.orange], for: .selected)
+        
+        let selected = [NSAttributedString.Key.foregroundColor:UIColor.orange]
+        UITabBarItem.appearance().setTitleTextAttributes(selected, for: .selected)
     }
     
      //部分设置外观
     func setLocalAppearance() {
         let attrsNormal = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 30)]
-        UITabBarItem.appearance(whenContainedInInstancesOf:  [self.classForCoder as! UIAppearanceContainer.Type]).setTitleTextAttributes(attrsNormal, for: .normal)
+        UITabBarItem.appearance(whenContainedInInstancesOf:  [MainTabBarController.self]).setTitleTextAttributes(attrsNormal, for: .normal)
     }
     
     override var childForStatusBarStyle: UIViewController? {

@@ -12,10 +12,6 @@ import SnapKit
 class ComposeTextView: UITextView {
     lazy var placeHolderLabel = UILabel()
     
-//    required init?(coder aDecoder: NSCoder) {//xib构建控件时 这个一般做添加子控件
-//        super.init(coder: aDecoder)
-//        setupUI()
-//    }
     // awakeFromNib  一般做初始化操作 约束 文字颜色 等等
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
@@ -25,8 +21,9 @@ class ComposeTextView: UITextView {
         alwaysBounceVertical = true //垂直滚动 
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder aDecoder: NSCoder) {//xib构建控件时 这个一般做添加子控件
+        super.init(coder: aDecoder)
+        setupUI()
     }
     
 }

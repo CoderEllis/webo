@@ -41,7 +41,7 @@ class UserAccount: NSObject, NSCoding {
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
     }
     
-    // MARK:- 重写description属性
+    // MARK:- 重写description属性  不想打印的去掉
     override var description: String {
         return dictionaryWithValues(forKeys: ["access_token", "expires_date", "uid", "screen_name", "avatar_large"]).description
     }

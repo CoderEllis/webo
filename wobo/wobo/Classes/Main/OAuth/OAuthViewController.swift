@@ -165,7 +165,7 @@ extension OAuthViewController{
 //            var accountPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
 //            accountPath = (accountPath as NSString).appendingPathComponent("accout.plist")
             
-            // 4.保存对象到沙盒
+            // 4.保存对象到沙盒(写入)
             NSKeyedArchiver.archiveRootObject(account, toFile: UserAccountViewModel.shareIntance.accountPath)
             
             // 5.将account对象设置到单例对象中

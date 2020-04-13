@@ -10,9 +10,9 @@ import UIKit
 
 extension UIButton {
     /*
-     遍历构造函数的特点
-     1.遍历构造函数通常都是写在extension里面
-     2.遍历构造函数init前面需要加载convenience
+     便利构造函数的特点
+     1.便利构造函数通常都是写在extension里面
+     2.便利构造函数init前面需要加载convenience
      3.在遍历构造函数中需要明确的调用self.init()
      */
     convenience init(imageName: String, bgImageName: String) {

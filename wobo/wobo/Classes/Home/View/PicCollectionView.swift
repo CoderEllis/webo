@@ -58,7 +58,7 @@ extension PicCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 extension PicCollectionView : AnimatorPresentedDelegate {
     func startRect(_ indexPath: IndexPath) -> CGRect {
         let cell = self.cellForItem(at: indexPath)!
-        // 2.获取cell的frame
+        // 2.获取cell的framec
         let startFrame = self.convert(cell.frame, to: UIApplication.shared.keyWindow)
         
         return startFrame

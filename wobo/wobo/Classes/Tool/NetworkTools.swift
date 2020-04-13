@@ -27,7 +27,7 @@ class NetworkTools {
     ///get
     func getRequest(url: String, param: [String: Any]?, successBlock: @escaping(_ json:JSON) -> (), failure: @escaping(_ error: Error) -> (),errorMsgHandler: @escaping(_ errorMsg:String) ->()) {// JSONEncoding 与 URLEncoding 服务接受数据的区别
         
-        request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             print("resopnse===\(response)")
             guard response.result.isSuccess else {
                 // 网络连接或者服务错误的提示信息
@@ -234,7 +234,7 @@ extension NetworkTools {
             if let value = response.result.value {
                 let json = JSON(value)
                 if let data = json.dictionaryObject {
-                    finished(data["statuses"] as? [[String: Any]],nil)
+                    finished(data["statuses"] as? Array<[String: Any]>,nil) //== [[String: Any]]
                 } else {
                     print("失败")
                 }

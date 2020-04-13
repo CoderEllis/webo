@@ -115,8 +115,9 @@ extension HomeViewController {
     ///nav的弹窗view
     @objc private func titleBtnClick(titleBth: TitleButton) {
         let popoverVc = PopoverViewController()
-        popoverVc.modalPresentationStyle = .custom
         popoverVc.transitioningDelegate = popoverAnimator
+        //设置modal样式 跳转方式
+        popoverVc.modalPresentationStyle = .custom
         let width : CGFloat = 180
         let x : CGFloat = ScreenWidth * 0.5 - width * 0.5
         popoverAnimator.presentedFrame = CGRect(x: x, y: navigationHeight, width: width, height: 250)
@@ -132,7 +133,7 @@ extension HomeViewController {
         let object = note.object as! PicCollectionView
         
         
-        let photoBrowserVc = PhotoBrowserController(indexPath: indexPath, picURLs: picURLs) { [weak self](alph) -> Void? in
+        let photoBrowserVc = PhotoBrowserController(indexPath: indexPath, picURLs: picURLs) { [weak self] (alph) in
             self?.photoBrowserAnimator.maskAlpha = alph
         }
         

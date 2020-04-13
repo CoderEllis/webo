@@ -11,7 +11,14 @@ import UIKit
 /// 转场协调器，主要处理转场蒙板
 class PhotoBrowserPresentationController: UIPresentationController {
     /// 蒙板
-    var maskView: UIView = {
+    var alph : CGFloat? {
+        didSet {
+            guard let alpha = alph else {return}
+            maskView.alpha = alpha
+        }
+    }
+    
+    private lazy var maskView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
         return view

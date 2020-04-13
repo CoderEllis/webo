@@ -54,8 +54,7 @@ extension Date {// class类方法只允许在类内；这里使用“static”�
         }
         
         //处理一年之内: 02-22 12:22
-        let cmps = (calendar as NSCalendar).components(.year, from: createDate, to: nowDate, options: [])
-        
+        let cmps = calendar.dateComponents([.year], from: createDate, to: nowDate)
         if cmps.year! < 1 {
             fmt.dateFormat = "MM-dd HH:mm"
             let timeStr = fmt.string(from: createDate)

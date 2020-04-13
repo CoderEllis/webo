@@ -34,10 +34,10 @@ class PhotoBrowserAnimator: NSObject {
     
     public var maskAlpha: CGFloat {
         set {
-            presentCtrl?.maskView.alpha = newValue
+            presentCtrl?.alph = newValue
         }
         get {
-            return presentCtrl?.maskView.alpha ?? 0
+            return presentCtrl?.alph ?? 0
         }
     }
     

@@ -49,7 +49,7 @@ extension UIColor {
         
         // 3.判断开头: 0x/#/##
         if tempHex.hasPrefix("0x") || tempHex.hasPrefix("##") {
-            tempHex = (tempHex as NSString).substring(from: 2)
+            tempHex = (tempHex as NSString).substring(from: 2) //截取指定位置之后的字符串
         }
         if tempHex.hasPrefix("#") {
             tempHex = (tempHex as NSString).substring(from: 1)
