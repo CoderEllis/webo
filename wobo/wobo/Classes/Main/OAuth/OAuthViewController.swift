@@ -100,7 +100,7 @@ extension OAuthViewController {
         // 2.获取url中的字符串
         let urlString = url.absoluteString
         // 3.判断该字符串中是否包含code
-        guard urlString.contains("code=") else {
+        guard urlString.contains("?code=") else {
             return true
         }
         // 4.将code截取出来

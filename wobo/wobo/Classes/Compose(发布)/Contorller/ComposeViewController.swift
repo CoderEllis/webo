@@ -21,7 +21,26 @@ class ComposeViewController: UIViewController,UICollectionViewDelegate {
     
     private lazy var titleView = ComposeTitleView()
     private lazy var textView = ComposeTextView()
-    private lazy var toolButton = UIToolbar()
+    private lazy var toolButton :UIToolbar = {
+        let toolButton = UIToolbar()
+        var array = [UIBarButtonItem]()
+         
+        let imgArr = ["compose_toolbar_picture","compose_mentionbutton_background","compose_trendbutton_background","compose_emoticonbutton_background","compose_keyboardbutton_background"]
+        let placeholder = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        array.append(placeholder)
+        for i in 0..<5 {
+            let item = UIBarButtonItem(imageName: imgArr[i], tag: i + 1000, tatget: self, action: #selector(toolbarClick(_:)))
+            array.append(item)
+            if i < 4 {
+                let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                array.append(space)
+            }
+        }
+        array.append(placeholder)
+        toolButton.items = array
+        //        textView.inputAccessoryView = toolButton
+        return toolButton
+        }()
     private lazy var picPickerView : UICollectionView = {
         let collectView = UICollectionView(frame: CGRect.zero, collectionViewLayout: ComposeCollectionViewLayout())
         collectView.register(PicPickerViewCell.self, forCellWithReuseIdentifier: picPickerCell)
@@ -43,7 +62,8 @@ class ComposeViewController: UIViewController,UICollectionViewDelegate {
         view.backgroundColor = UIColor.green
         setupNavigationBar()
         SetPicPickerView()
-        toolBar()
+        view.addSubview(toolButton)
+//        toolBar()
         
         setUI()
         //监听通知
@@ -58,8 +78,9 @@ class ComposeViewController: UIViewController,UICollectionViewDelegate {
     
     deinit {//移除通知
         NotificationCenter.default.removeObserver(self)
+        print("deinit")
     }
-    
+    //生命周期
 // initWithCoder -> awakeFromNib -> loadView -> viewDidLoad -> viewWillAppear -> viewWillLayoutSubviews -> viewDidLayoutSubviews -> viewWillLayoutSubviews -> viewDidLayoutSubviews -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc -> didReceiveMemoryWarning
 
     
@@ -83,25 +104,6 @@ extension ComposeViewController {
         textView.delegate = self
     }
     
-    private func toolBar() {
-        var array = [UIBarButtonItem]()
-        view.addSubview(toolButton) 
-        let imgArr = ["compose_toolbar_picture","compose_mentionbutton_background","compose_trendbutton_background","compose_emoticonbutton_background","compose_keyboardbutton_background"]
-        let placeholder = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
-        array.append(placeholder)
-        for i in 0..<5 {
-            let item = UIBarButtonItem(imageName: imgArr[i], tag: i + 1000, tatget: self, action: #selector(toolbarClick(_:)))
-            array.append(item)
-            if i < 4 {
-                let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-                array.append(space)
-            }
-        }
-        array.append(placeholder)
-        toolButton.items = array
-//        textView.inputAccessoryView = toolButton
-    }
-    
     private func SetPicPickerView() {
         view.addSubview(picPickerView)
         picPickerView.backgroundColor = UIColor.lightGray
@@ -122,6 +124,7 @@ extension ComposeViewController {
 // MARK:- 事件监听函数
 extension ComposeViewController {
     @objc func closeItemClick() {
+        textView.resignFirstResponder()
         dismiss(animated: true, completion: nil)
     }
     
@@ -177,12 +180,26 @@ extension ComposeViewController {
         
         let y = endFrame.origin.y
         
-        // 3.计算工具栏距离底部的间距
-        let margin = ScreenHeight - y - bottomSafeAreaHeight
-        toolBottomConstraint?.update(offset: -margin)//更新修改约束
-        UIView.animate(withDuration: duration) { 
-            self.view.layoutIfNeeded()
+        //收起键盘时
+        if y >= ScreenHeight {
+            UIView.animate(withDuration: duration) { 
+                self.toolBottomConstraint?.update(offset: 0)
+            }
+        }else {//弹出键盘时
+            UIView.animate(withDuration: duration) { 
+                // 3.计算工具栏距离底部的间距
+                let margin = ScreenHeight - y - bottomSafeAreaHeight
+                self.toolBottomConstraint?.update(offset: -margin)//更新修改约束
+                print(self.view.frame)
+            }
         }
+        
+        // 3.计算工具栏距离底部的间距
+//        let margin = ScreenHeight - y - bottomSafeAreaHeight
+//        toolBottomConstraint?.update(offset: -margin)//更新修改约束
+//        UIView.animate(withDuration: duration) { 
+//            self.view.layoutIfNeeded()
+//        }
     }
     
     @objc func toolbarClick(_ sender:UIBarButtonItem ) {
@@ -192,7 +209,6 @@ extension ComposeViewController {
         case  0:
             // 退出键盘
             textView.resignFirstResponder()
-            toolBottomConstraint?.update(offset: 0)
             // 执行动画
             picHightConstraint?.update(offset: ScreenHeight * 0.6)
             UIView.animate(withDuration: 0.25) { 
@@ -284,7 +300,6 @@ extension ComposeViewController : UITextViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         textView.resignFirstResponder()
-        toolBottomConstraint?.update(offset: 0)
     }
 
 }
